@@ -1,0 +1,87 @@
+use homestay;
+create table if not exists user_info
+(
+    user_id     bigint primary key comment '用户id',
+    name        varchar(20)  not null comment '昵称',
+    avatar      varchar(225) not null comment '头像',
+    phone       varchar(11)  not null comment '手机号',
+    email       varchar(100) not null comment '邮箱',
+    sex         varchar(3) comment '性别',
+    age         int comment '年龄',
+    create_time date         not null comment '创建时间',
+    address     varchar(225) comment '地址',
+    message     varchar(500) comment '留言',
+    is_delete   tinyint default 0 comment '逻辑删除标识 0 未删除 1 删除'
+) comment '用户信息表';
+
+
+create table if not exists user
+(
+    user_id   bigint(10) zerofill auto_increment primary key comment '用户id',
+    email     varchar(100) not null comment '邮箱',
+    password  varchar(200) not null comment '密码',
+    is_delete tinyint default 0 comment '逻辑删除标识 0 未删除 1 删除'
+
+) comment '用户账号表';
+
+
+
+create table if not exists house
+(
+    h_id        bigint auto_increment primary key comment '房屋id',
+    user_id     bigint       not null comment '用户id',
+    title       varchar(150) not null comment '标题',
+    price       double       not null comment '单价',
+    description varchar(600) comment '描述',
+    address     varchar(225) not null comment '地址',
+    type_id     int          not null comment '类型id 1 出租房 2 日结房 3 二手房 4 新房 ',
+    extent      double       not null comment '面积',
+    state       tinyint      not null comment '0 在售 1 售完 ',
+    decorate    tinyint      not null comment '0 为毛坯房 1 为已装修',
+    up_time     datetime     not null comment '上架时间',
+    down_time   datetime comment '下架时间',
+    is_delete   tinyint default 0 comment '逻辑删除标识 0 未删除 1 删除'
+) comment '房屋表';
+
+
+create table if not exists house_image
+(
+    hi_id     bigint auto_increment primary key comment 'id',
+    h_id      bigint       not null comment '房屋id',
+    url       varchar(225) not null comment '图片url',
+    is_delete tinyint default 0 comment '逻辑删除标识 0 未删除 1 删除'
+) comment '房屋图片资源表';
+
+create table if not exists type
+(
+    type_id   int auto_increment primary key comment '类型id',
+    type_name varchar(50) not null comment '类型名',
+    is_delete tinyint default 0 comment '逻辑删除标识 0 未删除 1 删除'
+) comment '房屋类型表';
+
+create table if not exists browse
+(
+    b_id      bigint auto_increment primary key comment '浏览id',
+    user_id   bigint not null comment '用户id',
+    h_id      bigint not null comment '房屋id',
+    is_delete tinyint default 0 comment '逻辑删除标识 0 未删除 1 删除'
+) comment '浏览记录表';
+
+create table if not exists collect
+(
+    c_id      bigint auto_increment primary key comment '收藏id',
+    user_id   bigint   not null comment '用户id',
+    h_id      bigint   not null comment '房屋id',
+    c_time    datetime not null comment '收藏时间',
+    is_delete tinyint default 0 comment '逻辑删除标识 0 未删除 1 删除'
+) comment '收藏表';
+
+
+
+
+
+
+
+
+
+
